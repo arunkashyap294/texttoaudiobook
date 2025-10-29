@@ -6,6 +6,3 @@ requests
 beautifulsoup4
 pydub
 lxml
-
-
-
