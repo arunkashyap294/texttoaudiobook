@@ -1,7 +1,7 @@
 python==3.11
 streamlit
 gtts
-pypdf
+PyMuPDF
 requests
 beautifulsoup4
 pydub

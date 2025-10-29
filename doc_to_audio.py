@@ -1,6 +1,6 @@
 import streamlit as st
 from gtts import gTTS
-from pypdf import PdfReader
+import fitz  # PyMuPDF
 import os
 from io import BytesIO
 import requests
@@ -13,10 +13,9 @@ import re
 def extract_text_from_pdf_bytes(pdf_bytes: bytes) -> str:
     """Extracts text content from PDF bytes."""
     try:
-        pdf_file = BytesIO(pdf_bytes)
-        reader = PdfReader(pdf_file)
-        text = "".join(page.extract_text() for page in reader.pages)
-        return text if text else ""
+        with fitz.open(stream=pdf_bytes, filetype="pdf") as doc:
+            text = "".join(page.get_text() for page in doc)
+        return text
     except Exception as e:
         st.error(f"Error reading PDF file: {e}")
         return ""
