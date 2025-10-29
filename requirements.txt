@@ -1,4 +1,4 @@
-# python==3.11
+python==3.11
 streamlit
 gtts
 PyMuPDF
@@ -6,4 +6,5 @@ requests
 beautifulsoup4
 pydub
 lxml
+
 
