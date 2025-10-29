@@ -1,12 +1,6 @@
 streamlit
 gtts
-PyMuPDF==1.23.26
+pypdf
 requests
 beautifulsoup4
 pydub==0.25.1
-lxml
-
-
-
-
-
