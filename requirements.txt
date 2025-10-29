@@ -1,11 +1,11 @@
-python==3.11
 streamlit
 gtts
 PyMuPDF==1.23.26
 requests
 beautifulsoup4
-pydub
+pydub==0.25.1
 lxml
+
 
 
 
