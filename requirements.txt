@@ -5,6 +5,8 @@ pypdf
 requests
 beautifulsoup4
 pydub
+pyaudioop
+
 
 
 
