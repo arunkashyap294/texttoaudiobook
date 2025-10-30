@@ -195,9 +195,14 @@ if input_method == "Berkshire Hathaway Letters":
                 for year in range(start_year, end_year + 1):
                     found_link = False
                     for link_tag in all_links:
-                        # Check the link's parent text. This is more robust as the year might be outside the <a> tag.
-                        parent_text = link_tag.parent.get_text(strip=True)
-                        if str(year) in parent_text:
+                        # For maximum robustness, we check the link's own text, its parent's text, and its grandparent's text.
+                        # This handles variations in HTML structure across different years (e.g., 1977 vs 2023).
+                        link_text = link_tag.get_text(strip=True)
+                        parent_text = link_tag.parent.get_text(strip=True) if link_tag.parent else ""
+                        # The grandparent check is useful for structures like <p><font><a>...</a></font></p>
+                        grandparent_text = link_tag.parent.parent.get_text(strip=True) if link_tag.parent and link_tag.parent.parent else ""
+
+                        if str(year) in link_text or str(year) in parent_text or str(year) in grandparent_text:
                             full_url = urljoin(base_url, link_tag['href'])
                             links.append((year, full_url))
                             found_link = True
