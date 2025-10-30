@@ -187,14 +187,17 @@ if input_method == "Berkshire Hathaway Letters":
                 response = requests.get(base_url, headers=headers)
                 response.raise_for_status()
                 soup = BeautifulSoup(response.content, 'html.parser')
+                
+                # Find all links on the page first, then filter them. This is more robust
+                # to changes in the HTML structure (e.g., if the year is wrapped in other tags).
+                all_links = soup.find_all('a', href=True)
                 links = []
                 for year in range(start_year, end_year + 1):
-                    # Use a regular expression to find the link text, ignoring leading/trailing whitespace.
-                    # This makes the scraper more robust to minor HTML changes.
-                    link_tag = soup.find('a', string=re.compile(r'\s*' + str(year) + r'\s*'))
-                    if link_tag and link_tag.get('href'):
+                    for link_tag in all_links:
+                        if str(year) in link_tag.get_text(strip=True):
                         full_url = urljoin(base_url, link_tag['href'])
                         links.append((year, full_url))
+                            break # Found the link for this year, move to the next year
                 if not links:
                     st.error("Could not find any letter links for the selected range.")
                     st.stop()
