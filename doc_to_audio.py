@@ -193,11 +193,18 @@ if input_method == "Berkshire Hathaway Letters":
                 all_links = soup.find_all('a', href=True)
                 links = []
                 for year in range(start_year, end_year + 1):
+                    found_link = False
                     for link_tag in all_links:
-                        if str(year) in link_tag.get_text(strip=True): # Line 197
-                            full_url = urljoin(base_url, link_tag['href']) # This line needs to be indented
-                            links.append((year, full_url)) # This line needs to be indented
-                            break # Found the link for this year, move to the next year
+                        # Check the link's parent text. This is more robust as the year might be outside the <a> tag.
+                        parent_text = link_tag.parent.get_text(strip=True)
+                        if str(year) in parent_text:
+                            full_url = urljoin(base_url, link_tag['href'])
+                            links.append((year, full_url))
+                            found_link = True
+                            break # Found the link for this year, move to the next one.
+                    if not found_link:
+                        st.warning(f"Could not find a link for year {year} in the main letters page.")
+
                 if not links:
                     st.error("Could not find any letter links for the selected range.")
                     st.stop()
