@@ -1,4 +1,3 @@
-python==3.11
 streamlit
 gtts
 pypdf
@@ -6,6 +5,7 @@ requests
 beautifulsoup4
 pydub
 pyaudioop
+
 
 
 
