@@ -4,8 +4,3 @@ pypdf
 requests
 beautifulsoup4
 pydub==0.25.1
-
-
-
-
-

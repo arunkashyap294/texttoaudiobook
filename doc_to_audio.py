@@ -8,6 +8,11 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from pydub import AudioSegment
 import time
+import os # Import os module
+
+# Explicitly set FFmpeg paths for pydub (common for some cloud environments)
+os.environ["FFMPEG_PATH"] = "/usr/bin/ffmpeg"
+os.environ["FFPROBE_PATH"] = "/usr/bin/ffprobe"
 import re
 
 def extract_text_from_pdf_bytes(pdf_bytes: bytes) -> str:
