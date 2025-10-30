@@ -194,9 +194,9 @@ if input_method == "Berkshire Hathaway Letters":
                 links = []
                 for year in range(start_year, end_year + 1):
                     for link_tag in all_links:
-                        if str(year) in link_tag.get_text(strip=True):
-                        full_url = urljoin(base_url, link_tag['href'])
-                        links.append((year, full_url))
+                        if str(year) in link_tag.get_text(strip=True): # Line 197
+                            full_url = urljoin(base_url, link_tag['href']) # This line needs to be indented
+                            links.append((year, full_url)) # This line needs to be indented
                             break # Found the link for this year, move to the next year
                 if not links:
                     st.error("Could not find any letter links for the selected range.")
